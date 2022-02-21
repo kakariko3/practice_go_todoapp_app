@@ -119,7 +119,7 @@ func (u *User) CreateSession() (session Session, err error) {
 	return session, err
 }
 
-// UUIDに対応するセッションが存在するかを確認 & セッションの各値を更新
+// UUIDに対応するセッションが存在するかを確認し、セッション構造体に各値を格納 (リクエスト時に都度UUIDを更新する機能が欲しい)
 func (sess *Session) CheckSession() (valid bool, err error) {
 	cmd := `SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = $1`
 	err = Db.QueryRow(cmd, sess.UUID).Scan(
